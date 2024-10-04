@@ -8,6 +8,7 @@ const customStyles ={
     right: 0,
     bottom: 0,
     backgroundColor: "rgb(60, 60, 60, 0.75)",
+    zIndex: 1000,
   },
   content: {
     top: "50%",
@@ -17,8 +18,7 @@ const customStyles ={
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: 0,
-    border: "none",
-   
+    border: "none", 
   }
 }
 Modal.setAppElement('#root');
@@ -40,7 +40,6 @@ export default function ImageModal({open, closeModal, selectedImage,}) {
                 alt={selectedImage.alt_description} />
             </div>
             )}
-
         </Modal>
         </>
     )

@@ -8,7 +8,16 @@ export default function SearchBar({onSubmit}) {
     const form = event.target
     const searchText = form.elements.search.value;
     if (searchText.trim() === '') {
-      toast.error('Please enter a search query');
+      toast.error('Please enter a search query',
+      {
+        icon: '🔍',
+        style: {
+          borderRadius: '10px',
+          background: '#f77307',
+          color: '#000',
+          fontSize: '20px'
+        },
+          });
       return;
     }
     onSubmit(searchText);

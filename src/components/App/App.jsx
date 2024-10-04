@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { toast } from 'react-hot-toast';
 
 import ImageGallery from "../ImageGallery/ImageGallery";
 import SearchBar from "../SearchBar/SearchBar"
@@ -25,11 +26,11 @@ export default function App() {
   };
 
   const hanleLoadMore =()=>{
-    setPage(page+1);
+    setPage(page + 1);
   }
 
   useEffect(()=>{
-    if(query===""){
+    if(query === ""){
       return;
     }
     async function getNewImages(){
@@ -37,6 +38,17 @@ export default function App() {
         setError(false);
         setIsLoader(true);
         const data = await fetchImages(query, page);
+        if (data.length === 0) { 
+          toast.error('No images found for your search query', {
+            icon: '🧐',
+            style: {
+              borderRadius: '10px',
+              background: '#f77307',
+              color: '#000',
+              fontSize: '20px'
+            },
+          });
+        }
         setImages((prevImages) => {
           return [...prevImages, ...data];
         });
@@ -48,6 +60,16 @@ export default function App() {
     }
     getNewImages();
   },[page,query])
+
+
+  useEffect(() => {
+    if (page > 1) {
+      window.scrollBy({
+        top: 600,
+        behavior: "smooth",
+      });
+    }
+  }, [images]); 
 
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
